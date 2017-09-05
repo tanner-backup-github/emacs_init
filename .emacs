@@ -100,17 +100,11 @@
         (comment-or-uncomment-region start end)))
 
 (global-set-key (kbd "C-;") 'comment-eclipse)
-
-; Completely project dependent idc
-(defun run ()
-  (interactive)
-  (shell-command "~/Desktop/anu/run.sh"))
-
-(global-set-key [C-f12] 'run)
-
+    
 (setq-default indent-tabs-mode t)
 (setq-default tab-width 8)
 (setq indent-line-function 'insert-tab)
+(setq lisp-indent-offset 8)
 
 (setq ring-bell-function 'ignore)
 
@@ -202,8 +196,17 @@
 
 (provide 'nasm-mode)
 (custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (buffer-move love-minor-mode lua-mode tab-group tabbar escreen fixmee fic-mode dracula-theme auto-complete))))
+    (buffer-move love-minor-mode lua-mode tab-group tabbar escreen fixmee fic-mode dracula-theme auto-complete)))
+ '(standard-indent 8))
 (custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  )
