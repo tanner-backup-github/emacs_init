@@ -1,10 +1,6 @@
 (require 'package)
-(let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
-                    (not (gnutls-available-p))))
-       (url (concat (if no-ssl "http" "https") "://melpa.org/packages/")))
-  (add-to-list 'package-archives (cons "melpa" url) t))
-(when (< emacs-major-version 24)
-  (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
+(add-to-list 'package-archives
+             '("melpa" . "https://melpa.org/packages/") t)
 (package-initialize)
 
 (windmove-default-keybindings 'meta)
@@ -13,6 +9,25 @@
       scroll-conservatively  10000)
 (setq column-number-mode t)
 
+(add-hook 'rust-mode-hook 'cargo-minor-mode)
+
+(require 'linum)
+(defun linum-update-window-scale-fix (win)
+  "fix linum for scaled text"
+  (set-window-margins win
+          (ceiling (* (if (boundp 'text-scale-mode-step)
+                  (expt text-scale-mode-step
+                    text-scale-mode-amount) 1)
+              (if (car (window-margins))
+                  (car (window-margins)) 1)
+              ))))
+(advice-add #'linum-update-window :after #'linum-update-window-scale-fix)
+
+(setq-default rust-indent-offset 8)
+(add-hook 'rust-mode-hook 'my-rust-mode-hook)
+(defun my-rust-mode-hook ()
+  (setq indent-tabs-mode t))
+		
 (defun move-text-internal (arg)
    (cond
     ((and mark-active transient-mark-mode)
@@ -57,7 +72,7 @@
 
 (global-linum-mode)
 (ac-config-default)
-(load-theme 'dracula t)
+(load-theme 'monokai t)
 (setq c-default-style "java"
           c-basic-offset 8)
 (menu-bar-mode -1)
@@ -122,7 +137,8 @@
            ("\\<\\(ASSERT\\)" 1 'font-lock-assert-face t)
            ("\\<\\(DECIDE\\)" 1 'font-lock-decide-face t)
            ("\\<\\(NOTE\\)" 1 'font-lock-note-face t)
-	   )))
+	   ("\\<\\(free\\)" 1 'font-loc-note-face t)
+	)))
       fixme-modes)
 (modify-face 'font-lock-todo-face "#ffd300" nil nil t nil t nil nil)
 (modify-face 'font-lock-fixme-face "#ff003f" nil nil t nil t nil nil)
@@ -209,4 +225,4 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ ) 
