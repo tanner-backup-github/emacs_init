@@ -10,6 +10,8 @@
 (setq column-number-mode t)
 
 (add-hook 'rust-mode-hook 'cargo-minor-mode)
+(setq-default message-log-max nil)
+(kill-buffer "*Messages*")
 
 (require 'linum)
 (defun linum-update-window-scale-fix (win)
