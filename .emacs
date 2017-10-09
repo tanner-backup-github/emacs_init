@@ -4,7 +4,7 @@
 (package-initialize)
 
 (windmove-default-keybindings 'meta)
-(set-default-font "Inconsolata-12")
+(set-default-font "Mensch-12")
 (setq scroll-step            1
       scroll-conservatively  10000)
 (setq column-number-mode t)
@@ -13,9 +13,14 @@
 (setq-default message-log-max nil)
 (kill-buffer "*Messages*")
 
+(defun build()
+	(interactive)
+	(shell-command "./build.sh"))
+
+(global-set-key [f12] 'build)
+
 (require 'linum)
 (defun linum-update-window-scale-fix (win)
-  "fix linum for scaled text"
   (set-window-margins win
           (ceiling (* (if (boundp 'text-scale-mode-step)
                   (expt text-scale-mode-step
