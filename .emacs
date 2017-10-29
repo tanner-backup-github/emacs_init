@@ -141,7 +141,7 @@
          mode
          '(("\\<\\(TODO\\)" 1 'font-lock-todo-face t)
            ("\\<\\(FIX\\)" 1 'font-lock-fixme-face t)
-           ("\\<\\(ASSERT\\)" 1 'font-lock-assert-face t)
+           ("\\<\\(assert\\)" 1 'font-lock-assert-face t)
            ("\\<\\(DECIDE\\)" 1 'font-lock-decide-face t)
            ("\\<\\(NOTE\\)" 1 'font-lock-note-face t)
 	   ("\\<\\(free\\)" 1 'font-loc-note-face t)
