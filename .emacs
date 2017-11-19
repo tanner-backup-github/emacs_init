@@ -4,7 +4,7 @@
 (package-initialize)
 
 (windmove-default-keybindings 'meta)
-(set-default-font "Mensch-12")
+;; (set-default-font "Mensch-12")
 (setq scroll-step            1
       scroll-conservatively  10000)
 (setq column-number-mode t)
@@ -141,7 +141,8 @@
          mode
          '(("\\<\\(TODO\\)" 1 'font-lock-todo-face t)
            ("\\<\\(FIX\\)" 1 'font-lock-fixme-face t)
-           ("\\<\\(assert\\)" 1 'font-lock-assert-face t)
+		  ("\\<\\(assert\\)" 1 'font-lock-assert-face t)
+		  ("\\<\\(ASSERT\\)" 1 'font-lock-assert-face t)
            ("\\<\\(DECIDE\\)" 1 'font-lock-decide-face t)
            ("\\<\\(NOTE\\)" 1 'font-lock-note-face t)
 	   ("\\<\\(free\\)" 1 'font-loc-note-face t)
