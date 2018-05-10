@@ -37,8 +37,10 @@
 
 (setq clang-format-style-option "{BasedOnStyle: llvm, IndentWidth: 8}")
 
-;; (require 'doom-themes)
-(load-theme 'doom-molokai)
+(require 'doom-themes)
+;; (load-theme 'doom-molokai)
+;; (load-theme 'github)
+(load-theme 'darkokai)
 
 (setq-default rust-indent-offset 8)
 (add-hook 'rust-mode-hook 'my-rust-mode-hook)
@@ -236,11 +238,11 @@
  ;; If there is more than one, they won't work right.
 	'(custom-safe-themes
 		 (quote
-			 ("53f97243218e8be82ba035ae34c024fd2d2e4de29dc6923e026d5580c77ff702" "0a3a41085c19d8121ed0ad3eb658a475ccb948a70a83604641ee7d4c3575a4d5" default)))
+			 ("4e21fb654406f11ab2a628c47c1cbe53bab645d32f2c807ee2295436f09103c6" "891debfe489c769383717cc7d0020244a8d62ce6f076b2c42dd1465b7c94204d" "aa0a998c0aa672156f19a1e1a3fb212cdc10338fb50063332a0df1646eb5dfea" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "e11569fd7e31321a33358ee4b232c2d3cf05caccd90f896e1df6cab228191109" "6ee6f99dc6219b65f67e04149c79ea316ca4bcd769a9e904030d38908fd7ccf9" "d5b121d69e48e0f2a84c8e4580f0ba230423391a78fcb4001ccb35d02494d79e" "b550fc3d6f0407185ace746913449f6ed5ddc4a9f0cf3be218af4fb3127c7877" "b571f92c9bfaf4a28cb64ae4b4cdbda95241cd62cf07d942be44dc8f46c491f4" "c3d4af771cbe0501d5a865656802788a9a0ff9cf10a7df704ec8b8ef69017c68" "eea01f540a0f3bc7c755410ea146943688c4e29bea74a29568635670ab22f9bc" "3b5ce826b9c9f455b7c4c8bff22c020779383a12f2f57bf2eb25139244bb7290" "bbb4a4d39ed6551f887b7a3b4b84d41a3377535ccccf901a3c08c7317fad7008" "53f97243218e8be82ba035ae34c024fd2d2e4de29dc6923e026d5580c77ff702" "0a3a41085c19d8121ed0ad3eb658a475ccb948a70a83604641ee7d4c3575a4d5" default)))
  '(inhibit-startup-screen t)
 	'(package-selected-packages
 		 (quote
-			 (clang-format doom-themes buffer-move love-minor-mode lua-mode tab-group tabbar escreen fixmee fic-mode auto-complete)))
+			 (solarized-theme zenburn-theme darkokai-theme blackboard-theme gotham-theme molokai-theme monokai-theme monokai-alt-theme rust-mode github-theme clang-format doom-themes buffer-move love-minor-mode lua-mode tab-group tabbar escreen fixmee fic-mode auto-complete)))
  '(standard-indent 8))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
