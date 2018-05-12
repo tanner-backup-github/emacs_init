@@ -40,7 +40,8 @@
 (require 'doom-themes)
 ;; (load-theme 'doom-molokai)
 ;; (load-theme 'github)
-(load-theme 'darkokai)
+;; t for not asking if it's safe.
+(load-theme 'darkokai t)
 
 (setq-default rust-indent-offset 8)
 (add-hook 'rust-mode-hook 'my-rust-mode-hook)
