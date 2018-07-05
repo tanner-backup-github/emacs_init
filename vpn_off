@@ -1,6 +1,0 @@
-#!/bin/bash
-v=..
-cd /etc
-sudo rm resolv.conf
-sudo ln -s /run/resolvconf/resolv.conf
-cd "$v"
