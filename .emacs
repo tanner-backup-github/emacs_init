@@ -2,20 +2,27 @@
 (add-to-list 'package-archives
              '("melpa" . "https://melpa.org/packages/") t)
 (package-initialize)
+(package-refresh-contents)
 
 (windmove-default-keybindings 'meta)
-;; (set-default-font "Mensch-12")
 (setq scroll-step            1
       scroll-conservatively  10000)
 (setq column-number-mode t)
 
 (add-hook 'rust-mode-hook 'cargo-minor-mode)
+(setq-default rust-indent-offset 8)
+(add-hook 'rust-mode-hook 'my-rust-mode-hook)
+(defun my-rust-mode-hook ()
+  (setq indent-tabs-mode t))
+(add-hook 'markdown-mode-hook 'my-markdown-mode-hook)
+(defun my-markdown-mode-hook ()
+	(visual-line-mode t))
+
 (setq-default message-log-max nil)
 (kill-buffer "*Messages*")
 
-(add-to-list 'load-path "~/.emacs.d/elpa/fasm-mode/")
-(load "fasm-mode")
-(add-to-list 'auto-mode-alist '("\\.S\\'" . fasm-mode))
+(load "~/.emacs.d/fasm-mode/fasm-mode.el")
+(add-to-list 'auto-mode-alist '("\\.asm\\'" . fasm-mode))
 
 (require 'linum)
 (defun linum-update-window-scale-fix (win)
@@ -39,20 +46,15 @@
 ;; t for not asking if it's safe.
 (load-theme 'darkokai t)
 
-(setq-default rust-indent-offset 8)
-(add-hook 'rust-mode-hook 'my-rust-mode-hook)
-(defun my-rust-mode-hook ()
-  (setq indent-tabs-mode t))
-
-(setq inhibit-startup-screen t)
-
 (defun move-line-up ()
+  "Move up the current line."
   (interactive)
   (transpose-lines 1)
   (forward-line -2)
   (indent-according-to-mode))
 
 (defun move-line-down ()
+  "Move down the current line."
   (interactive)
   (forward-line 1)
   (transpose-lines 1)
@@ -134,16 +136,15 @@
         (font-lock-add-keywords
          mode
          '(("\\<\\(todo\\)" 1 'font-lock-todo-face t)
-           ("\\<\\(fix\\)" 1 'font-lock-fixme-face t)
+	   ("\\<\\(log\\)" 1 'font-lock-todo-face t)
+		  ("\\<\\(panic\\)" 1 'font-lock-fixme-face t)
+		  ("\\<\\(fix\\)" 1 'font-lock-fixme-face t)
 		  ("\\<\\(assert\\)" 1 'font-lock-assert-face t)
-		  ;; ("\\<\\(ASSERT\\)" 1 'font-lock-assert-face t)
-           ("\\<\\(decide\\)" 1 'font-lock-decide-face t)
            ("\\<\\(note\\)" 1 'font-lock-note-face t)
-	   ("\\<\\(free\\)" 1 'font-loc-note-face t)
 	)))
-      fixme-modes)
-(modify-face 'font-lock-todo-face "#ffd300" nil nil t nil t nil nil)
-(modify-face 'font-lock-fixme-face "#ff003f" nil nil t nil t nil nil)
+	fixme-modes)
+;; t in position third from right will underline
+(modify-face 'font-lock-todo-face "#ffd300" nil nil t nil nil nil nil)
+(modify-face 'font-lock-fixme-face "#ff003f" nil nil t nil nil nil nil)
 (modify-face 'font-lock-assert-face "#ff003f" nil nil t nil nil nil nil)
-(modify-face 'font-lock-decide-face "#7851A9" nil nil t nil nil nil nil)
-(modify-face 'font-lock-note-face "#138808" nil nil t nil t nil nil)
+(modify-face 'font-lock-note-face "#138808" nil nil t nil nil nil nil)
