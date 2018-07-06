@@ -2,8 +2,9 @@
 (add-to-list 'package-archives
              '("melpa" . "https://melpa.org/packages/") t)
 (package-initialize)
-(package-refresh-contents)
+;; (package-refresh-contents)
 
+(setq inhibit-startup-screen t)
 (windmove-default-keybindings 'meta)
 (setq scroll-step            1
       scroll-conservatively  10000)
@@ -41,10 +42,9 @@
 (global-set-key [C-tab] 'clang-format-buffer)
 
 (require 'doom-themes)
-;; (load-theme 'doom-molokai)
-;; (load-theme 'github)
 ;; t for not asking if it's safe.
 (load-theme 'darkokai t)
+(set-frame-font "Consolas")
 
 (defun move-line-up ()
   "Move up the current line."
