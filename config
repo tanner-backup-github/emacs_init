@@ -168,3 +168,9 @@ bindsym $mod+r mode "resize"
 bar {
         status_command i3status
 }
+
+bindsym XF86MonBrightnessUp exec "light -A 10"
+bindsym XF86MonBrightnessDown exec "light -U 10"
+bindsym XF86AudioRaiseVolume exec "amixer -q sset Master,0 5+ unmute"	
+bindsym XF86AudioLowerVolume exec "amixer -q sset Master,0 5- unmute"
+bindsym XF86AudioMute exec "amixer -q sset Master,0 toggle"
