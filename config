@@ -173,4 +173,3 @@ bindsym XF86MonBrightnessUp exec "light -A 10; notify-send 'brightness up' --exp
 bindsym XF86MonBrightnessDown exec "light -U 10; notify-send 'brightness down' --expire-time=1500"
 bindsym XF86AudioRaiseVolume exec "amixer -q sset Master,0 5+ unmute; notify-send 'sound up' --expire-time=1500"
 bindsym XF86AudioLowerVolume exec "amixer -q sset Master,0 5- unmute; notify-send 'sound down' --expire-time=1500"
-bindsym XF86AudioMute exec "amixer -q sset Master,0 toggle; notify-send 'sound toggled' --expire-time=1500"
