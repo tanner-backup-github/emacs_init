@@ -117,5 +117,5 @@ if ! shopt -oq posix; then
 fi
 cd ~/Desktop
 source $HOME/.cargo/env
-alias ls='ls -la --color=always --sort=extension --group-directories'
+alias ls='ls -la --color=always --sort=extension --group-directories -I. -I..'
 eval `dircolors ~/dircolorsdb`
