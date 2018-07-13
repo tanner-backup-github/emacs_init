@@ -46,7 +46,7 @@
 (require 'doom-themes)
 ;; t for not asking if it's safe.
 (load-theme 'darkokai t)
-(set-frame-font "Consolas 14")
+(set-frame-font "Consolas 12")
 
 (defun move-line-up ()
   "Move up the current line."
