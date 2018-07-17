@@ -122,8 +122,10 @@
 (setq indent-line-function 'insert-tab)
 (add-hook 'd-mode-hook
           (lambda ()
-            (setq c-basic-offset 4)
-            (setq tab-width 4)))
+		  (global-set-key (kbd "C-c i") 'dfmt-region)
+		  (global-set-key (kbd "C-c u") 'dfmt-buffer)
+		  (setq c-basic-offset 4)
+		  (setq tab-width 4)))
 
 (require 'smart-hungry-delete)
 (smart-hungry-delete-add-default-hooks)
