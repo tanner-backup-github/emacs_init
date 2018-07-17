@@ -88,10 +88,6 @@
   (interactive)
   (load-file "~/.emacs"))
 
-(defun read-init ()
-  (interactive)
-  (find-file "~/.emacs"))
-
 (global-set-key (kbd "<backtab>") 'un-indent-by-removing-8-spaces)
 (defun un-indent-by-removing-8-spaces ()
   "remove 4 spaces from beginning of of line"
