@@ -13,16 +13,17 @@
 (setq column-number-mode t)
 
 (add-hook 'rust-mode-hook 'cargo-minor-mode)
-(setq-default rust-indent-offset 8)
-(add-hook 'rust-mode-hook 'my-rust-mode-hook)
-(defun my-rust-mode-hook ()
-  (setq indent-tabs-mode t))
+(setq-default rust-indent-offset 4)
+(setq rust-format-on-save t)
+
 (add-hook 'markdown-mode-hook 'my-markdown-mode-hook)
 (defun my-markdown-mode-hook ()
 	(visual-line-mode t))
 
 (setq-default message-log-max nil)
 (kill-buffer "*Messages*")
+
+(setq load-prefer-newer t)
 
 (load "~/.emacs.d/fasm-mode/fasm-mode.el")
 (add-to-list 'auto-mode-alist '("\\.asm\\'" . fasm-mode))
