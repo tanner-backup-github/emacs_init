@@ -4,6 +4,18 @@
 (package-initialize)
 ;; (package-refresh-contents)
 
+(setq backup-directory-alist '(("." . "~/.emacs.d/backup"))
+  backup-by-copying t    ; Don't delink hardlinks
+  version-control t      ; Use version numbers on backups
+  delete-old-versions t  ; Automatically delete excess backups
+  kept-new-versions 20   ; how many of the newest versions to keep
+  kept-old-versions 5    ; and how many of the old
+  )
+
+(add-to-list 'load-path "/some/path/neotree")
+(require 'neotree)
+(global-set-key [f8] 'neotree-toggle)
+
 (setq markdown-fontify-code-blocks-natively t)
 
 (setq inhibit-startup-screen t)
@@ -25,9 +37,6 @@
 
 (setq load-prefer-newer t)
 
-(load "~/.emacs.d/fasm-mode/fasm-mode.el")
-(add-to-list 'auto-mode-alist '("\\.asm\\'" . fasm-mode))
-
 (require 'linum)
 (defun linum-update-window-scale-fix (win)
   (set-window-margins win
@@ -42,12 +51,10 @@
 (require 'clang-format)
 (global-set-key (kbd "C-c i") 'clang-format-region)
 (global-set-key (kbd "C-c u") 'clang-format-buffer)
-(global-set-key [C-tab] 'clang-format-buffer)
 
 (require 'doom-themes)
 ;; t for not asking if it's safe.
-(load-theme 'darkokai t)
-(set-frame-font "Consolas 12")
+(load-theme 'doom-dracula t)
 
 (defun move-line-up ()
   "Move up the current line."
@@ -121,12 +128,6 @@
 (setq-default indent-tabs-mode t)
 (setq-default tab-width 8)
 (setq indent-line-function 'insert-tab)
-(add-hook 'd-mode-hook
-          (lambda ()
-		  (global-set-key (kbd "C-c i") 'dfmt-region)
-		  (global-set-key (kbd "C-c u") 'dfmt-buffer)
-		  (setq c-basic-offset 4)
-		  (setq tab-width 4)))
 
 (require 'smart-hungry-delete)
 (smart-hungry-delete-add-default-hooks)
@@ -168,7 +169,7 @@
  ;; If there is more than one, they won't work right.
 	'(package-selected-packages
 		 (quote
-			 (dfmt d-mode flyspell-correct rust-mode polymode org-link-minor-mode nasm-mode mmm-mode markdown-mode doom-themes darkokai-theme clang-format auto-complete))))
+			 (cargo neotree dfmt d-mode flyspell-correct rust-mode polymode org-link-minor-mode nasm-mode mmm-mode markdown-mode doom-themes darkokai-theme clang-format auto-complete))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
