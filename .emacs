@@ -7,14 +7,15 @@
 ;; (package-refresh-contents)
 
 ;; Windows
-(setq default-directory "~/../../Desktop/")
-(set-default-font "Consolas-11")
-(add-to-list 'load-path "~/.emacs.d/lisp/")
+;; (setq default-directory "~/../../Desktop/")
+;; (set-default-font "Consolas-11")
+;; (add-to-list 'load-path "~/.emacs.d/lisp/")
 
 (autoload 'ucf-mode "ucf-mode" "Xilinx UCF mode" t)
 (add-to-list 'auto-mode-alist '("\\.ucf\\'" . ucf-mode))
 (setq verilog-auto-newline nil)
 
+(require 'auto-complete)
 (global-auto-complete-mode t)
 
 (setq-default indent-tabs-mode t)
@@ -42,10 +43,6 @@
 (setq ido-enable-flex-matching t)
 (setq ido-everywhere t)
 (ido-mode 1)
-
-(add-to-list 'load-path "/some/path/neotree")
-(require 'neotree)
-(global-set-key [f8] 'neotree-toggle)
 
 (setq markdown-fontify-code-blocks-natively t)
 
