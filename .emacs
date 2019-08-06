@@ -1,4 +1,4 @@
-;; A lot of this has accumulated but whatever. I've cleaned it up a little bit.
+; A lot of this has accumulated but whatever. I've cleaned it up a little bit.
 
 (require 'package)
 (add-to-list 'package-archives
@@ -6,45 +6,18 @@
 (package-initialize)
 ;; (package-refresh-contents)
 
+(setq backup-directory-alist `(("." . "~/.saves")))
+
 ;; Windows
 ;; (setq default-directory "~/../../Desktop/")
 ;; (set-default-font "Consolas-11")
 ;; (add-to-list 'load-path "~/.emacs.d/lisp/")
 
-(autoload 'ucf-mode "ucf-mode" "Xilinx UCF mode" t)
-(add-to-list 'auto-mode-alist '("\\.ucf\\'" . ucf-mode))
-(setq verilog-auto-newline nil)
-
-(require 'auto-complete)
-(global-auto-complete-mode t)
-
-(setq-default indent-tabs-mode t)
-(setq indent-line-function 'insert-tab)
-(setq-default tab-width 4)
-(setq-default vhdl-basic-offset 4)
-
-(defun comment-eclipse ()
-	(interactive)
-	(let ((start (line-beginning-position))
-		     (end (line-end-position)))
-		(when (or (not transient-mark-mode) (region-active-p))
-			(setq start (save-excursion
-					    (goto-char (region-beginning))
-					    (beginning-of-line)
-					    (point))
-				end (save-excursion
-					    (goto-char (region-end))
-					    (end-of-line)
-					    (point))))
-		(comment-or-uncomment-region start end)))
-
-(global-set-key (kbd "C-;") 'comment-eclipse)
-
-(setq ido-enable-flex-matching t)
-(setq ido-everywhere t)
-(ido-mode 1)
-
-(setq markdown-fontify-code-blocks-natively t)
+;; Turn off all the annoying UI and audio
+(menu-bar-mode -1)
+(toggle-scroll-bar -1)
+(tool-bar-mode -1)
+(setq ring-bell-function 'ignore)
 
 (setq inhibit-startup-screen t)
 (windmove-default-keybindings 'meta)
@@ -52,24 +25,50 @@
       scroll-conservatively 10000)
 (setq column-number-mode t)
 
-(add-hook 'rust-mode-hook 'cargo-minor-mode)
-(setq-default rust-indent-offset 4)
-(setq rust-format-on-save t)
-
-(add-hook 'markdown-mode-hook 'my-markdown-mode-hook)
-(defun my-markdown-mode-hook ()
-	(visual-line-mode t))
-
 (setq-default message-log-max nil)
 (kill-buffer "*Messages*")
 
+(setq-default indent-tabs-mode t)
+(setq indent-line-function 'insert-tab)
+(setq-default tab-width 4)
 (setq load-prefer-newer t)
 
+(require 'auto-complete)
+(global-auto-complete-mode t)
 (global-display-line-numbers-mode)
 
-(require 'clang-format)
-(global-set-key (kbd "C-c i") 'clang-format-region)
-(global-set-key (kbd "C-c u") 'clang-format-buffer)
+(require 'smart-hungry-delete)
+(smart-hungry-delete-add-default-hooks)
+
+(setq verilog-auto-newline nil)
+
+;; verilog-mode somehow uses c-mode-hook so figure that out later to
+;; use clang-format with .c files.
+(add-hook 'c++-mode-hook
+	(function (lambda ()
+				  (add-hook 'before-save-hook
+					  'clang-format-buffer))))
+
+(defun comment-eclipse ()
+	(interactive)
+	(let ((start (line-beginning-position))
+		     (end (line-end-position)))
+		(when (or (not transient-mark-mode) (region-active-p))
+			(setq start (save-excursion
+ 					    (goto-char (region-beginning))
+ 					    (beginning-of-line)
+ 					    (point))
+ 				end (save-excursion
+ 					    (goto-char (region-end))
+ 					    (end-of-line)
+ 					    (point))))
+ 		(comment-or-uncomment-region start end)))
+
+(global-set-key (kbd "C-;") 'comment-eclipse)
+
+(add-hook 'rust-mode-hook 'cargo-minor-mode)
+(setq-default rust-indent-offset 4)
+(setq rust-format-on-save t)
 
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
 (require 'doom-themes)
@@ -102,48 +101,7 @@
 
 (global-set-key [(control shift return)] 'smart-open-line-above)
 
-(ac-config-default)
-(setq c-default-style "java"
-          c-basic-offset 4)
-(setq lisp-indent-offset 4)
-
-;; Turn off all the annoying UI
-(menu-bar-mode -1)
-(toggle-scroll-bar -1)
-(tool-bar-mode -1)
-
 ;; Linux
 (defun reload-init ()
   (interactive)
   (load-file "~/.emacs"))
-
-(require 'smart-hungry-delete)
-(smart-hungry-delete-add-default-hooks)
-(global-set-key (kbd "<backspace>") 'smart-hungry-delete-backward-char)
-(global-set-key (kbd "C-d") 'smart-hungry-delete-forward-char)
-
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
-
-(setq ring-bell-function 'ignore)
-(put 'scroll-left 'disabled nil)
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
-	'(custom-safe-themes
-		 (quote
-			 ("f0dc4ddca147f3c7b1c7397141b888562a48d9888f1595d69572db73be99a024" "bd7b7c5df1174796deefce5debc2d976b264585d51852c962362be83932873d9" default)))
- '(jdee-db-active-breakpoint-face-colors (cons "#1E2029" "#bd93f9"))
- '(jdee-db-requested-breakpoint-face-colors (cons "#1E2029" "#50fa7b"))
- '(jdee-db-spec-breakpoint-face-colors (cons "#1E2029" "#565761"))
- '(objed-cursor-color "#ff5555")
-	'(package-selected-packages
-		 (quote
-			 (elscreen tabbar smart-tabs-mode monokai-theme smart-hungry-delete neotree doom-themes clang-format cargo auto-complete))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
