@@ -42,33 +42,35 @@
 
 (setq verilog-auto-newline nil)
 
-;; verilog-mode somehow uses c-mode-hook so figure that out later to
-;; use clang-format with .c files.
-(add-hook 'c++-mode-hook
-	(function (lambda ()
-				  (add-hook 'before-save-hook
-					  'clang-format-buffer))))
-
 (defun comment-eclipse ()
-	(interactive)
-	(let ((start (line-beginning-position))
-		     (end (line-end-position)))
-		(when (or (not transient-mark-mode) (region-active-p))
-			(setq start (save-excursion
- 					    (goto-char (region-beginning))
- 					    (beginning-of-line)
- 					    (point))
- 				end (save-excursion
- 					    (goto-char (region-end))
- 					    (end-of-line)
- 					    (point))))
- 		(comment-or-uncomment-region start end)))
+  (interactive)
+  (let ((start (line-beginning-position))
+		(end (line-end-position)))
+	(when (or (not transient-mark-mode) (region-active-p))
+	  (setq start (save-excursion
+					(goto-char (region-beginning))
+					(beginning-of-line)
+					(point))
+			end (save-excursion
+				  (goto-char (region-end))
+				  (end-of-line)
+				  (point))))
+	(comment-or-uncomment-region start end)))
 
 (global-set-key (kbd "C-;") 'comment-eclipse)
 
 (add-hook 'rust-mode-hook 'cargo-minor-mode)
 (setq-default rust-indent-offset 4)
 (setq rust-format-on-save t)
+
+(defun my-c++-mode-hook ()
+  (setq c-basic-offset 4)
+  (c-set-offset 'substatement-open 0))
+(add-hook 'c++-mode-hook 'my-c++-mode-hook)
+(add-hook 'c-mode-common-hook
+          (function (lambda ()
+					  (add-hook 'before-save-hook
+								'clang-format-buffer))))
 
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
 (require 'doom-themes)
@@ -101,7 +103,6 @@
 
 (global-set-key [(control shift return)] 'smart-open-line-above)
 
-;; Linux
 (defun reload-init ()
   (interactive)
   (load-file "~/.emacs"))
