@@ -1,4 +1,4 @@
-;; A lot of this has accumulated but whatever. I've cleaned it up a little bit.
+; A lot of this has accumulated but whatever. I've cleaned it up a little bit.
 
 (require 'package)
 (add-to-list 'package-archives
@@ -11,6 +11,9 @@
 ;; (set-default-font "Consolas-11")
 ;; (add-to-list 'load-path "~/.emacs.d/lisp/")
 
+;; backup in one place. flat, no tree structure
+(setq backup-directory-alist '(("" . "~/.emacs.d/backup")))
+
 (autoload 'ucf-mode "ucf-mode" "Xilinx UCF mode" t)
 (add-to-list 'auto-mode-alist '("\\.ucf\\'" . ucf-mode))
 (setq verilog-auto-newline nil)
@@ -21,7 +24,6 @@
 (setq-default indent-tabs-mode t)
 (setq indent-line-function 'insert-tab)
 (setq-default tab-width 4)
-(setq-default vhdl-basic-offset 4)
 
 (defun comment-eclipse ()
 	(interactive)
@@ -68,8 +70,10 @@
 (global-display-line-numbers-mode)
 
 (require 'clang-format)
-(global-set-key (kbd "C-c i") 'clang-format-region)
-(global-set-key (kbd "C-c u") 'clang-format-buffer)
+(add-hook 'c-mode-common-hook
+	(function (lambda ()
+				  (add-hook 'before-save-hook
+					  'clang-format-buffer))))
 
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
 (require 'doom-themes)
@@ -140,7 +144,7 @@
  '(objed-cursor-color "#ff5555")
 	'(package-selected-packages
 		 (quote
-			 (elscreen tabbar smart-tabs-mode monokai-theme smart-hungry-delete neotree doom-themes clang-format cargo auto-complete))))
+			 (rust-mode elscreen tabbar smart-tabs-mode monokai-theme smart-hungry-delete neotree doom-themes clang-format cargo auto-complete))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
