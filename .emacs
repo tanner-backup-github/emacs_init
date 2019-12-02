@@ -21,6 +21,7 @@
 
 (require 'load-relative)
 (load-relative "~/.emacs.d/config-clang-format.el")
+(setq-default c-basic-offset 4)
 
 (setq inhibit-startup-screen t)
 (windmove-default-keybindings 'meta)
