@@ -77,9 +77,19 @@
 
 (global-set-key (kbd "C-;") 'comment-eclipse)
 
-(add-hook 'rust-mode-hook 'cargo-minor-mode)
+(require 'rust-mode)
 (setq-default rust-indent-offset 4)
 (setq rust-format-on-save t)
+(add-hook 'rust-mode-hook #'racer-mode)
+(add-hook 'racer-mode-hook #'eldoc-mode)
+(add-hook 'racer-mode-hook #'company-mode)
+(define-key rust-mode-map (kbd "TAB") #'company-indent-or-complete-common)
+(setq company-tooltip-align-annotations t)
+(use-package flycheck
+  :ensure t
+  :init (global-flycheck-mode))
+(with-eval-after-load 'rust-mode
+  (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))
 
 ; (defun my-c++-mode-hook ()
 ;  (setq c-basic-offset 4)
@@ -128,7 +138,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-	(load-relative smart-hungry-delete monokai-theme doom-themes clang-format auto-complete))))
+	(use-package flycheck-rust company racer rust-mode load-relative smart-hungry-delete monokai-theme doom-themes clang-format auto-complete))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
